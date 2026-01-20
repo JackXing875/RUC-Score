@@ -2,7 +2,7 @@ name: RUC Score Check
 
 on:
   schedule:
-    - cron: '*/30 * * * *'
+    - cron: '*/10 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -44,9 +44,11 @@ jobs:
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         
-        # 【修改点 2】因为脚本在 src 里运行，scores.json 也会生成在 src 里
-        # 所以我们要 add 这个具体路径
         git add src/scores.json
-        
         git commit -m "Update score records" || echo "No changes to commit"
+        
+        # --- 关键修改：增加这一行 ---
+        git pull --rebase
+        # -------------------------
+        
         git push
