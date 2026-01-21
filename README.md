@@ -101,5 +101,10 @@ python3 src/main.py
 > * 开发者不对因使用本项目导致的任何账号安全问题或教务系统异常承担责任。
 > * 请妥善保管好你的 `Secrets`，不要将密码分享给他人。
 
+
+> [!IMPORTANT]
+> 本项目参考了 *GitHub* 项目 [ruc-spider](https://github.com/Meteors27/ruc-spider)，特别感谢此项目！
+
 ---
 最后，如果觉得本仓库有帮助，欢迎点亮⭐，这是对作者持续创作的最大鼓励！
+
