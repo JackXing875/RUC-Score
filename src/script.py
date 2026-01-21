@@ -4,7 +4,7 @@ import ddddocr
 import urllib.parse
 
 
-class RucSpider(object):
+class RucScore(object):
     loginURL = "https://v.ruc.edu.cn/auth/login"
     captchaURL = "https://v.ruc.edu.cn/auth/captcha"
     __maxRetry = 5

@@ -3,7 +3,7 @@ import json
 import logging
 import smtplib
 from email.mime.text import MIMEText
-from RUC_Spider import RucSpider
+from script import RucScore
 
 # --- 环境变量 ---
 STUDENT_ID = os.environ.get("STUDENT_ID")
@@ -12,7 +12,7 @@ MAIL_USER = os.environ.get("MAIL_USER")
 MAIL_PASS = os.environ.get("MAIL_PASS")
 RECEIVER = os.environ.get("RECEIVER")
 
-class JwSpider(RucSpider):
+class JwSpider(RucScore):
     scoreURL = "https://jw.ruc.edu.cn/resService/jwxtpt/v1/xsd/cjgl_xsxdsq/findKccjList"
 
     def __init__(self, username, password):
@@ -29,7 +29,7 @@ class JwSpider(RucSpider):
         }
 
     def login(self):
-        RucSpider.login(self)
+        RucScore.login(self)
         self.__headers["TOKEN"] = self.sess.cookies["token"]
 
     def getScore(self):
@@ -57,7 +57,6 @@ class EmailMessager:
             logging.info(f"邮件发送成功: {title}")
         except Exception as e:
             logging.error(f"邮件发送失败: {e}")
-            # 【重要】发送失败时必须报错，阻止后续保存文件的操作，防止漏通知
             raise e 
 
 if __name__ == "__main__":
@@ -79,8 +78,6 @@ if __name__ == "__main__":
         for item in current_data:
             c_name = item.get("kcname")
             
-            # --- 【修复点 1】过滤 None 垃圾数据 ---
-            # 如果课程名是空的，直接跳过，不加入到字典里
             if not c_name:
                 continue
 
@@ -94,7 +91,6 @@ if __name__ == "__main__":
         else:
             logging.info("首次运行，未发现历史记录。")
 
-        # --- 【修复点 2】使用列表收集更新（防封号） ---
         updates = [] 
         for name, detail in current_scores_map.items():
             if name not in old_scores_map:
@@ -102,21 +98,17 @@ if __name__ == "__main__":
             elif old_scores_map[name] != detail:
                 updates.append(f"【更新】{name}\n原：{old_scores_map[name]}\n新：{detail}")
 
-        # --- 【修复点 3】仅在有更新时发邮件，且只发一封 ---
         if updates:
             email_title = f"【成绩提醒】发现 {len(updates)} 条新动态"
             email_body = "同学你好，监测到以下成绩变动：\n\n" + "\n------------------\n".join(updates)
             
-            # 发送汇总邮件
             messager.send(email_title, email_body)
             
-            # 只有邮件发成功了，才保存记录
             with open("scores.json", "w", encoding="utf-8") as f:
                 json.dump(current_scores_map, f, ensure_ascii=False, indent=2)
             logging.info("成绩记录已更新并保存。")
         
         else:
-            # 如果没有新成绩，但如果是初次运行（或者为了修复之前的数据），也保存一下干净的数据
             if not os.path.exists("scores.json"):
                 with open("scores.json", "w", encoding="utf-8") as f:
                     json.dump(current_scores_map, f, ensure_ascii=False, indent=2)
