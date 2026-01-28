@@ -5,7 +5,7 @@ import smtplib
 from email.mime.text import MIMEText
 from script import RucScore
 
-# --- 环境变量 ---
+# 环境变量
 STUDENT_ID = os.environ.get("STUDENT_ID")
 PASSWORD = os.environ.get("PASSWORD")
 MAIL_USER = os.environ.get("MAIL_USER")

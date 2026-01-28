@@ -31,7 +31,6 @@ class RucScore(object):
         self.sess = requests.Session()
 
     def login(self):
-        # try several times
         for i in range(self.__maxRetry):
             try:
                 self.captcha()
@@ -49,12 +48,9 @@ class RucScore(object):
 
     def captcha(self):
         self.__res = self.sess.get(self.captchaURL, headers=self.__headers)
-        # Get captcha ID
         captcha_json = self.__res.json()
         self.__captchaID = captcha_json["id"]
-        # Get captcha image
         captcha_png = base64.b64decode(captcha_json["b64s"].split(",")[1])
-        # OCR captcha
         ocr = ddddocr.DdddOcr()
         self.__captchaCode = ocr.classification(captcha_png)
         return self.__captchaCode
