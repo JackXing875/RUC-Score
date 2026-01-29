@@ -2,6 +2,10 @@
 
 # RUC Grade Monitor | 人大教务系统查分助手
 
+![License](https://img.shields.io/github/license/JackXing875/RUC-Score)
+![Repo Size](https://img.shields.io/github/repo-size/JackXing875/RUC-Score)
+![Last Commit](https://img.shields.io/github/last-commit/JackXing875/RUC-Score)
+
 > 基于 GitHub Actions 的中国人民大学（*RUC*）教务系统自动查分脚本。
 > **无需服务器，无需挂机，自动识别验证码，出分即时邮件提醒。**
 
