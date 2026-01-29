@@ -33,7 +33,7 @@
 
 为了保护你的账号安全，请**不要**直接在代码里填写密码。我们需要使用 `GitHub Secrets` 。
 
-1. 进入你 Fork 后的仓库页面。
+1. 进入你的仓库页面。
 2. 点击上方导航栏的 **Settings** -> 左侧栏 **Secrets and variables** -> **Actions**。
 3. 点击 **New repository secret**，依次添加以下 5 个变量：
 
