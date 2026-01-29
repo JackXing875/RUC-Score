@@ -20,9 +20,14 @@
 ## Quick Start
 
 
-### 第一步：Fork 本仓库
+### 第一步：创建私有仓库 (Create Private Repo)
 
-点击页面右上角的 **Fork** 按钮，将本项目复制到你自己的 `GitHub` 账号下。
+点击页面右上角的 **Use this template** (使用此模板) 按钮，选择 **Create a new repository**。
+
+1.  **Repository name**: 给你的仓库起个名字（例如 `My-Grade-Bot`）。
+2.  **Privacy**: ⚠️ **务必选择 Private (私有)**。
+    * *这是保护你学号、密码和成绩数据不被公开的关键一步。*
+3.  点击 **Create repository** 完成创建。
 
 ### 第二步：配置隐私数据 (Secrets)
 
